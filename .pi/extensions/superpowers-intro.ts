@@ -1,6 +1,6 @@
 /**
  * Superpowers for pi - Session Start Handler
- * 
+ *
  * 이 확장은 세션 시작 시 Superpowers 사용법에 대한 안내를 제공합니다.
  * 사용 가능한 skill 목록과 함께 간단한 소개를 보여줍니다.
  */
@@ -24,12 +24,12 @@ const SUPERPOWERS_SKILLS = [
 export default function (pi: ExtensionAPI) {
   pi.on("session_start", async (_event, ctx) => {
     const skillsList = SUPERPOWERS_SKILLS.map(
-      (s) => `  • **${s.name}**: ${s.desc}`
+      (s) => `  - **${s.name}**: ${s.desc}`
     ).join("\n");
 
     const introMessage = `✨ **Superpowers 활성화됨!**
 
-이 프로젝트에는 Superpowers软件开发方法론이 적용되어 있습니다.
+이 프로젝트에는 Superpowers 소프트웨어 개발 방법론이 적용되어 있습니다.
 
 **사용 가능한 Skill:**
 ${skillsList}
@@ -48,6 +48,11 @@ ${skillsList}
     const entries = ctx.sessionManager.getEntries();
     if (entries.length <= 2) {
       ctx.ui.notify("Superpowers loaded!", "info");
+      // 인트로 메시지를 세션에 추가 (에이전트가 사용자에게 표시)
+      ctx.sessionManager.addEntry({
+        role: "assistant",
+        content: introMessage,
+      });
     }
   });
 }
