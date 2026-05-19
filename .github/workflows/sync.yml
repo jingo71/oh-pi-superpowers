@@ -1,0 +1,56 @@
+name: Sync with original superpowers repo
+
+on:
+  schedule:
+    # 매일 자정에 체크 (원본 repo 변경 시)
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # 수동 실행
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Fetch original superpowers repo
+        run: |
+          git remote add original https://github.com/obra/superpowers.git
+          git fetch original main --tags
+
+      - name: Check for changes
+        id: check
+        run: |
+          # 원본의 skills 디렉토리 가져오기
+          mkdir -p /tmp/original-skills
+          git archive original/main --prefix=original/ | tar -x -C /tmp/original-skills || true
+          
+          # diff 확인
+          if diff -rq skills /tmp/original-skills/original/skills 2>/dev/null | grep -q .; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Sync skills if changed
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          # 원본에서 새롭거나 변경된 파일만 복사
+          cp -r /tmp/original-skills/original/skills/* skills/ 2>/dev/null || true
+          
+          # GitHub Actions에서는 git config 필요
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # 변경 사항 커밋
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "sync: Update skills from obra/superpowers"
+            git push origin main
+          fi
