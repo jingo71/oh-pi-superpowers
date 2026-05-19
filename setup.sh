@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ================================================
-#    Superpowers for pi - Installer
+#    oh-pi-superpowers - Installer
 # ================================================
 
 RED='\033[0;31m'
@@ -24,7 +24,7 @@ SOURCE_EXTENSIONS="${SCRIPT_DIR}/.pi/extensions"
 SOURCE_SETTINGS="${SCRIPT_DIR}/.pi/settings.json"
 
 echo -e "${BLUE}================================================${RESET}"
-echo -e "${BLUE}   Superpowers for pi - Installer${RESET}"
+echo -e "${BLUE}   oh-pi-superpowers - Installer${RESET}"
 echo -e "${BLUE}================================================${RESET}"
 echo ""
 

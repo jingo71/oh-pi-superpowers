@@ -1,4 +1,4 @@
-# Superpowers for pi
+# oh-pi-superpowers
 
 [Superpowers](https://github.com/obra/superpowers)를 **pi** 에이전트에서 사용할 수 있도록 포팅한 버전입니다.
 

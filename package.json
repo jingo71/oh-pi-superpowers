@@ -1,0 +1,16 @@
+{
+  "name": "oh-pi-superpowers",
+  "version": "1.0.0",
+  "description": "Superpowers workflow toolkit for pi coding agent",
+  "keywords": ["pi-package", "pi", "coding-agent", "superpowers", "workflow"],
+  "pi": {
+    "skills": ["./skills"],
+    "extensions": [".pi/extensions"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jingo71/oh-pi-superpowers"
+  },
+  "author": "jingo71",
+  "license": "MIT"
+}

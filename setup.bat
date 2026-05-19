@@ -2,7 +2,7 @@
 setlocal EnableDelayedExpansion
 
 echo ================================================
-echo    Superpowers for pi - Installer
+echo    oh-pi-superpowers - Installer
 echo ================================================
 echo.
 
