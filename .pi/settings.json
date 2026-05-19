@@ -1,0 +1,7 @@
+{
+  "$schema": "https://pi.docs/earendil-works.com/config-schema",
+  "skills": [
+    "./skills"
+  ],
+  "enableSkillCommands": true
+}
